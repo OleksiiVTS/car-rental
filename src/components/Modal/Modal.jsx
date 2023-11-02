@@ -1,0 +1,81 @@
+import React from 'react';
+import { nanoid } from 'nanoid';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+
+const Modal = ({ data, closeModal }) => {
+  const dispatch = useDispatch();
+  const conditions = data.rentalConditions.split('\n');
+  const mileageFull = data.mileage.toString();
+  const mileage = `${mileageFull.substring(
+    0,
+    mileageFull.length - 3
+  )},${mileageFull.substring(mileageFull.length - 3)}`;
+
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+
+    const handleKeyDown = event => {
+      if (event.code === 'Escape') {
+        closeModal();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.body.style.overflow = 'unset';
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [dispatch, closeModal]);
+
+  return (
+    <div>
+      <div>
+        <h1>Modal</h1>
+        <button type="button" onClick={closeModal}>
+          X
+        </button>
+        <div>
+          <img src={data.img} alt="General view of the car" />
+          <div>
+            <p>{data.make}</p>
+            <p>{data.model}</p>
+            <p>{data.year}</p>
+          </div>
+          <p>
+            {data.address} | {data.rentalCompany} | {data.make} | {data.model} |{' '}
+            {data.type} | {mileage} | {data.fuelConsumption} | {data.engineSize}
+          </p>
+          <p>{data.description}</p>
+          <div>
+            <h5>Accessories and functionalities:</h5>
+            <p>{data.accessories.join(' | ')}</p>
+            <p>{data.functionalities.join(' | ')}</p>
+          </div>
+          <div>
+            <h5>Rental Conditions:</h5>
+            <ul>
+              {conditions.map(condition => (
+                <li key={nanoid()}>
+                  <p>{condition}</p>
+                </li>
+              ))}
+              <li>
+                <p>
+                  Mileage: <span>{mileage}</span>
+                </p>
+              </li>
+              <li>
+                <p>
+                  Price: <span>{data.rentalPrice}</span>
+                </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <a href="tel:+380730000000">Rental car</a>
+      </div>
+    </div>
+  );
+};
+
+export default Modal;
