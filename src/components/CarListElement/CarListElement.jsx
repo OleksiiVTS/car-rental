@@ -14,7 +14,6 @@ const CarListElement = ({ data = [] }) => {
     )},${mileageFull.substring(mileageFull.length - 3)}`;
     return mileage;
   };
-
   const handelClick = car => {
     setCarItem(car);
     setOpenModal(true);
