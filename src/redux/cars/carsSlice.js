@@ -14,12 +14,14 @@ export const carsSlice = createSlice({
   },
   reducers: {
     addFavoriteCar(state, action) {
-      return state.favoriteCars.push(action.payload);
+      state.favoriteCars.push(action.payload);
     },
-    // dellFavoriteCar(state, action) {
-    //   const index = action.payload.id;
-    //   return (state.favoriteCars = action.payload);
-    // },
+    dellFavoriteCar(state, action) {
+      const index = state.favoriteCars.findIndex(
+        car => car.id === action.payload.id
+      );
+      state.favoriteCars.splice(index, 1);
+    },
   },
   extraReducers: builder => {
     builder
@@ -39,6 +41,7 @@ export const carsSlice = createSlice({
   },
 });
 
+export const { addFavoriteCar, dellFavoriteCar } = carsSlice.actions;
 export const carsReducer = persistReducer(
   {
     key: 'ist_cars',

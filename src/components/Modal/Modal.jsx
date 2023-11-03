@@ -6,11 +6,6 @@ import { useDispatch } from 'react-redux';
 const Modal = ({ data, closeModal }) => {
   const dispatch = useDispatch();
   const conditions = data.rentalConditions.split('\n');
-  const mileageFull = data.mileage.toString();
-  const mileage = `${mileageFull.substring(
-    0,
-    mileageFull.length - 3
-  )},${mileageFull.substring(mileageFull.length - 3)}`;
 
   useEffect(() => {
     document.body.style.overflow = 'hidden';
@@ -43,7 +38,8 @@ const Modal = ({ data, closeModal }) => {
           </div>
           <p>
             {data.address} | {data.rentalCompany} | {data.make} | {data.model} |{' '}
-            {data.type} | {mileage} | {data.fuelConsumption} | {data.engineSize}
+            {data.type} | {data.mileage.toLocaleString('en-IN')} |{' '}
+            {data.fuelConsumption} | {data.engineSize}
           </p>
           <p>{data.description}</p>
           <div>
@@ -61,7 +57,7 @@ const Modal = ({ data, closeModal }) => {
               ))}
               <li>
                 <p>
-                  Mileage: <span>{mileage}</span>
+                  Mileage: <span>{data.mileage.toLocaleString('en-IN')}</span>
                 </p>
               </li>
               <li>
