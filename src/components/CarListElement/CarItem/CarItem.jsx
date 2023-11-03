@@ -6,12 +6,12 @@ const CarItem = ({ car, handelClick }) => {
   const { addCarToFavorite, dellCarFromFavorite, isFavoriteCars } = useCars();
   const [favorite, setFavorite] = useState(false);
 
-  const test = isFavoriteCars.find(carItem => carItem.id === car.id);
+  const isFavor = isFavoriteCars.find(carItem => carItem.id === car.id);
   useEffect(() => {
-    if (test) {
+    if (isFavor) {
       setFavorite(true);
     }
-  }, [test]);
+  }, [isFavor]);
 
   const handelChange = () => {
     if (favorite) {
@@ -21,7 +21,6 @@ const CarItem = ({ car, handelClick }) => {
     }
     setFavorite(!favorite);
     addCarToFavorite(car);
-    console.log(favorite);
   };
 
   return (

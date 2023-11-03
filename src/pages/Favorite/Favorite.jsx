@@ -8,8 +8,7 @@ const Favorite = () => {
 
   return (
     <section>
-      <h1>Favorite</h1>
-      <Filter></Filter>
+      <Filter data={isFavoriteCars}></Filter>
       <CarListElement data={isFavoriteCars}></CarListElement>
     </section>
   );

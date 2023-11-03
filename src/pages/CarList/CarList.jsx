@@ -8,8 +8,7 @@ const CarList = () => {
 
   return (
     <section>
-      <h1>CarList</h1>
-      <Filter></Filter>
+      <Filter data={isCars}></Filter>
       <CarListElement data={isCars}></CarListElement>
     </section>
   );

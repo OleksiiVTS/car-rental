@@ -2,11 +2,18 @@ import React from 'react';
 import { nanoid } from 'nanoid';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import { DivBackdrop, DivContainer } from './Modal.styled';
 
 const Modal = ({ data, closeModal }) => {
   const dispatch = useDispatch();
   const conditions = data.rentalConditions.split('\n');
 
+  const closeBackdrop = e => {
+    const isBackdrop = e.target.attributes.name?.nodeValue;
+    if (isBackdrop) {
+      closeModal();
+    }
+  };
   useEffect(() => {
     document.body.style.overflow = 'hidden';
 
@@ -23,9 +30,8 @@ const Modal = ({ data, closeModal }) => {
   }, [dispatch, closeModal]);
 
   return (
-    <div>
-      <div>
-        <h1>Modal</h1>
+    <DivBackdrop name="backdrop" onClick={closeBackdrop}>
+      <DivContainer>
         <button type="button" onClick={closeModal}>
           X
         </button>
@@ -69,8 +75,8 @@ const Modal = ({ data, closeModal }) => {
           </div>
         </div>
         <a href="tel:+380730000000">Rental car</a>
-      </div>
-    </div>
+      </DivContainer>
+    </DivBackdrop>
   );
 };
 
