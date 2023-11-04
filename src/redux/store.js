@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { carsReducer } from './cars/carsSlice';
-import { filtersReducer } from './filtersSlice';
+import { filtersReducer } from './filters/filtersSlice';
 import {
   persistStore,
   FLUSH,

@@ -3,6 +3,7 @@ import { nanoid } from 'nanoid';
 import { Formik, Field, Form, useFormik } from 'formik';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import { useCars } from 'redux/useCars';
 
 const Filter = ({ data }) => {
   const [markSelect, setMarkSelect] = useState([]);
@@ -23,6 +24,10 @@ const Filter = ({ data }) => {
     setMileageSelect({ minMileage, maxMileage });
   }, [data]);
 
+  const { addDataToFilter } = useCars();
+  const sortF = (a, b) => {
+    return a - b;
+  };
   const formik = useFormik({
     initialValues: {
       carBrand: '',
@@ -31,7 +36,7 @@ const Filter = ({ data }) => {
       toMileage: mileageSelect.minMileage,
     },
     onSubmit: values => {
-      console.log(values);
+      addDataToFilter(values);
     },
   });
 
@@ -49,7 +54,7 @@ const Filter = ({ data }) => {
       <Formik>
         <Form onSubmit={formik.handleSubmit}>
           <label htmlFor="carBrand">
-            Car bran
+            Car brand
             <Field
               id="carBrand"
               as="select"
@@ -77,7 +82,7 @@ const Filter = ({ data }) => {
               value={formik.values.price}
             >
               <option value=""></option>
-              {rentalPriceSelect.map(item => (
+              {rentalPriceSelect.sort(sortF).map(item => (
                 <option key={nanoid()} value={item}>
                   {item}
                 </option>
@@ -93,8 +98,8 @@ const Filter = ({ data }) => {
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               value={fromMileage}
-              step="0.500"
-              placeholder={`Min: ${mileageSelect.minMileage.toLocaleString(
+              step="0.100"
+              placeholder={`From: ${mileageSelect.minMileage.toLocaleString(
                 'en-IN'
               )}`}
               min={min}
@@ -106,8 +111,8 @@ const Filter = ({ data }) => {
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               value={toMileage}
-              step="0.500"
-              placeholder={`Max: ${mileageSelect.maxMileage.toLocaleString(
+              step="0.100"
+              placeholder={`To: ${mileageSelect.maxMileage.toLocaleString(
                 'en-IN'
               )}`}
               min={min}

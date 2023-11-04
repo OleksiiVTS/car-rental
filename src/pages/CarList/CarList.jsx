@@ -4,12 +4,12 @@ import CarListElement from 'components/CarListElement/CarListElement';
 import { useCars } from 'redux/useCars';
 
 const CarList = () => {
-  const { isCars } = useCars();
+  const { isCars, isVisibleCars } = useCars();
 
   return (
     <section>
       <Filter data={isCars}></Filter>
-      <CarListElement data={isCars}></CarListElement>
+      <CarListElement data={isVisibleCars}></CarListElement>
     </section>
   );
 };

@@ -74,7 +74,13 @@ const Modal = ({ data, closeModal }) => {
             </ul>
           </div>
         </div>
-        <a href="tel:+380730000000">Rental car</a>
+        <a
+          target="_blank"
+          rel="noreferrer"
+          href="https://support.google.com/chrome/thread/230556846?hl=ru"
+        >
+          Rental car
+        </a>
       </DivContainer>
     </DivBackdrop>
   );
