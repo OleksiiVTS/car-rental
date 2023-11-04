@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { selectCars, selectFavoriteCars } from './cars/carsSelectors';
-import { getCars } from './cars/carsOperations';
+import { getCars, updateCars } from './cars/carsOperations';
 import { addDataFilter, setStatusFilter } from './filters/filtersSlice';
 import { useCallback } from 'react';
 import { addFavoriteCar, dellFavoriteCar } from './cars/carsSlice';
@@ -18,6 +18,9 @@ export const useCars = () => {
   const isVisibleFavoriteCars = useSelector(selectVisibleFavoriteCars);
 
   const getCarsList = useCallback(() => dispatch(getCars()), [dispatch]);
+  const updateCarsList = page => {
+    dispatch(updateCars(page));
+  };
 
   const addCarToFavorite = favoriteCar => {
     dispatch(addFavoriteCar(favoriteCar));
@@ -42,6 +45,7 @@ export const useCars = () => {
     addCarToFavorite,
     dellCarFromFavorite,
     filterContact,
+    updateCarsList,
     getCarsList,
   };
 };

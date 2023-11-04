@@ -50,7 +50,6 @@ const Filter = ({ data }) => {
 
   return (
     <div>
-      <h1>Filter</h1>
       <Formik>
         <Form onSubmit={formik.handleSubmit}>
           <label htmlFor="carBrand">

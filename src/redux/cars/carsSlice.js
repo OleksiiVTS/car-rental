@@ -1,5 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { getCars } from './carsOperations';
+import { createSlice, isAnyOf, isPending, isRejected } from '@reduxjs/toolkit';
+import { getCars, updateCars } from './carsOperations';
 import persistReducer from 'redux-persist/es/persistReducer';
 import storage from 'redux-persist/lib/storage';
 
@@ -31,10 +31,16 @@ export const carsSlice = createSlice({
         state.isRefreshing = false;
         state.error = null;
       })
-      .addCase(getCars.pending, state => {
+      .addCase(updateCars.fulfilled, (state, action) => {
+        state.dataCars.push(...action.payload);
+        state.isLoggedIn = true;
+        state.isRefreshing = false;
+        state.error = null;
+      })
+      .addMatcher(isAnyOf(isPending(getCars)), state => {
         state.isRefreshing = true;
       })
-      .addCase(getCars.rejected, (state, action) => {
+      .addMatcher(isAnyOf(isRejected(getCars)), (state, action) => {
         state.isRefreshing = false;
         state.error = action.payload;
       });
