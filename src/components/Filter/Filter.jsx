@@ -1,15 +1,20 @@
 import React from 'react';
+import sprite from '../Pictures/sprite.svg';
 import { nanoid } from 'nanoid';
-import { Formik, useFormik } from 'formik';
+import { useFormik } from 'formik';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useCars } from 'redux/useCars';
 import {
+  ButtonCloseFormik,
   ButtonFormik,
+  ButtonOpenFormik,
+  DivButtonOpenFormik,
   DivFormikMileage,
   FieldStyledFormik,
   FieldStyledFormikPrice,
   FormStyledFormik,
+  FormikStyled,
   InputFrom,
   InputTo,
   LabelFormik,
@@ -19,6 +24,7 @@ import {
 } from './Filter.styled';
 
 const Filter = ({ data }) => {
+  const [showSidebar, setShowSidebar] = useState('false');
   const [markSelect, setMarkSelect] = useState([]);
   const [rentalPriceSelect, setRentalPriceSelect] = useState([]);
   const [mileageSelect, setMileageSelect] = useState({
@@ -49,11 +55,21 @@ const Filter = ({ data }) => {
       toMileage: mileageSelect.minMileage,
     },
     onSubmit: values => {
-      if (values.toMileage <= values.fromMileage) {
+      const { carBrand, fromMileage, price, toMileage } = values;
+      const empty =
+        carBrand === '' &&
+        fromMileage === '' &&
+        price === '' &&
+        toMileage === '';
+      if (empty) {
+        return;
+      }
+      if (values.toMileage < values.fromMileage) {
         alert(`Sorry. The "From" price cannot be greater than the "To" price.`);
         return;
       }
       addDataToFilter(values);
+      setShowSidebar('false');
     },
   });
 
@@ -69,11 +85,20 @@ const Filter = ({ data }) => {
 
   return (
     <div>
-      <div>
-        <button type="button">Open Filter</button>
-      </div>
-      <Formik>
-        <FormStyledFormik onSubmit={formik.handleSubmit}>
+      <DivButtonOpenFormik>
+        <ButtonOpenFormik onClick={() => setShowSidebar('true')} type="button">
+          Open Filter
+        </ButtonOpenFormik>
+      </DivButtonOpenFormik>
+      <FormikStyled>
+        <FormStyledFormik mode={showSidebar} onSubmit={formik.handleSubmit}>
+          <ButtonCloseFormik
+            width={16}
+            height={16}
+            onClick={() => setShowSidebar('false')}
+          >
+            <use href={sprite + '#cross'}></use>
+          </ButtonCloseFormik>
           <LabelFormik htmlFor="carBrand">
             {!formik.values.carBrand && <SpanMark>Enter the mark</SpanMark>}
             Car brand
@@ -149,7 +174,7 @@ const Filter = ({ data }) => {
           </LabelFormik>
           <ButtonFormik type="submit">Search</ButtonFormik>
         </FormStyledFormik>
-      </Formik>
+      </FormikStyled>
     </div>
   );
 };

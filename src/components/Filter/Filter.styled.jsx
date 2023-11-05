@@ -1,6 +1,15 @@
 import styled from 'styled-components';
-import { Field, Form } from 'formik';
+import { ButtonClose } from 'components/Modal/Modal.styled';
+import { Formik, Field, Form } from 'formik';
 
+export const FormikStyled = styled(Formik)``;
+
+export const ButtonCloseFormik = styled(ButtonClose)`
+  display: none;
+  @media screen and (max-width: 930px) {
+    display: block;
+  }
+`;
 export const FormStyledFormik = styled(Form)`
   display: flex;
   justify-content: center;
@@ -8,6 +17,24 @@ export const FormStyledFormik = styled(Form)`
   gap: 18px;
   margin-top: 50px;
   margin-bottom: 50px;
+
+  @media screen and (max-width: 930px) {
+    position: absolute;
+    top: 0;
+    left: ${props => (props.mode === 'true' ? `0` : `-410px`)};
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+
+    padding: 14px;
+    height: 100%;
+
+    background-color: #fff;
+    box-shadow: 0px 1px 6px rgba(46, 47, 66, 0.08),
+      0px 1px 1px rgba(46, 47, 66, 0.16), 0px 2px 1px rgba(46, 47, 66, 0.08);
+    border-radius: 12px;
+    z-index: 3;
+  }
 `;
 
 export const LabelFormik = styled.label`
@@ -133,5 +160,26 @@ export const ButtonFormik = styled.button`
   &:hover {
     box-shadow: none;
     background-color: rgba(11, 68, 205, 1);
+  }
+`;
+
+export const DivButtonOpenFormik = styled.div`
+  margin-bottom: 20px;
+  max-width: 1440px;
+  padding: 0 15px;
+`;
+
+export const ButtonOpenFormik = styled(ButtonFormik)`
+  width: 100%;
+  color: black;
+  background-color: rgb(247, 247, 251);
+  display: none;
+
+  &:hover {
+    background-color: #c1c1c536;
+  }
+
+  @media screen and (max-width: 930px) {
+    display: block;
   }
 `;

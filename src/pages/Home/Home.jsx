@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, animateScroll as scroll } from 'react-scroll';
+import { Link } from 'react-scroll';
 import 'react-toastify/dist/ReactToastify.css';
 import sprite from '../../components/Pictures/sprite.svg';
 import { ToastContainer, toast } from 'react-toastify';
