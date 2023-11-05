@@ -99,6 +99,11 @@ export const DivMap = styled.div`
   margin-bottom: 20px;
   width: 600px;
   height: 600px;
+
+  @media screen and (max-width: 768px) {
+    width: 300px;
+    height: 300px;
+  }
 `;
 export const SectionContact = styled(SectionNav)`
   background-color: rgba(8, 81, 165, 0.7);
