@@ -62,7 +62,8 @@ const Filter = ({ data }) => {
         price === '' &&
         toMileage === '';
       if (empty) {
-        return addDataToFilter(values);
+        addDataToFilter(values);
+        return;
       }
       if (values.toMileage < values.fromMileage) {
         alert(`Sorry. The "From" price cannot be greater than the "To" price.`);
