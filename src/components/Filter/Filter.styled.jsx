@@ -133,6 +133,9 @@ export const InputFrom = styled.input`
   &:hover {
     background-color: #c1c1c536;
   }
+  @media screen and (max-width: 930px) {
+    width: 145px;
+  }
 `;
 
 export const InputTo = styled(InputFrom)`
