@@ -11,7 +11,7 @@ export const DivBackdrop = styled.div`
   width: 100%;
   height: 100%;
   background-color: rgba(18, 20, 23, 0.5);
-  z-index: 1;
+  z-index: 10;
 `;
 
 export const ButtonClose = styled.svg`
