@@ -1,12 +1,27 @@
 import React from 'react';
-import { nanoid } from 'nanoid';
+import sprite from '../Pictures/sprite.svg';
+// import { nanoid } from 'nanoid';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { DivBackdrop, DivContainer } from './Modal.styled';
+import {
+  ButtonModal,
+  DivBackdrop,
+  DivContainer,
+  DivModalMarkList,
+  ImgCarModal,
+  PDescription,
+  DivMiniDescription,
+  SpanModalMareList,
+  HFourModal,
+  UlModalConditions,
+  DivImgBox,
+  ButtonClose,
+} from './Modal.styled';
 
 const Modal = ({ data, closeModal }) => {
   const dispatch = useDispatch();
   const conditions = data.rentalConditions.split('\n');
+  const age = conditions[0].split(':');
 
   const closeBackdrop = e => {
     const isBackdrop = e.target.attributes.name?.nodeValue;
@@ -32,55 +47,66 @@ const Modal = ({ data, closeModal }) => {
   return (
     <DivBackdrop name="backdrop" onClick={closeBackdrop}>
       <DivContainer>
-        <button type="button" onClick={closeModal}>
-          X
-        </button>
+        <ButtonClose width={16} height={16} onClick={closeModal}>
+          <use href={sprite + '#cross'}></use>
+        </ButtonClose>
         <div>
-          <img src={data.img} alt="General view of the car" />
-          <div>
+          <DivImgBox>
+            <ImgCarModal src={data.img} alt="General view of the car" />
+          </DivImgBox>
+          <DivModalMarkList>
             <p>{data.make}</p>
-            <p>{data.model}</p>
+            <p>
+              <SpanModalMareList>{data.model}</SpanModalMareList>,
+            </p>
             <p>{data.year}</p>
-          </div>
-          <p>
-            {data.address} | {data.rentalCompany} | {data.make} | {data.model} |{' '}
-            {data.type} | {data.mileage.toLocaleString('en-IN')} |{' '}
-            {data.fuelConsumption} | {data.engineSize}
-          </p>
-          <p>{data.description}</p>
-          <div>
-            <h5>Accessories and functionalities:</h5>
+          </DivModalMarkList>
+          <DivMiniDescription>
+            {data.address.replace(/,/g, ' |')} | {data.rentalCompany} |{' '}
+            {data.make} | {data.model} | {data.type} |{' '}
+            {data.mileage.toLocaleString('en-IN')} | {data.fuelConsumption} |{' '}
+            {data.engineSize}
+          </DivMiniDescription>
+          <PDescription>{data.description}</PDescription>
+          <HFourModal>Accessories and functionalities:</HFourModal>
+          <DivMiniDescription>
             <p>{data.accessories.join(' | ')}</p>
             <p>{data.functionalities.join(' | ')}</p>
-          </div>
-          <div>
-            <h5>Rental Conditions:</h5>
-            <ul>
-              {conditions.map(condition => (
-                <li key={nanoid()}>
-                  <p>{condition}</p>
-                </li>
-              ))}
-              <li>
-                <p>
-                  Mileage: <span>{data.mileage.toLocaleString('en-IN')}</span>
-                </p>
+          </DivMiniDescription>
+          <HFourModal>Rental Conditions:</HFourModal>
+          <UlModalConditions>
+            {/* {conditions.map(condition => (
+              <li key={nanoid()}>
+                <p>{condition}</p>
               </li>
-              <li>
-                <p>
-                  Price: <span>{data.rentalPrice}</span>
-                </p>
-              </li>
-            </ul>
-          </div>
+            ))} */}
+            <li>
+              {age[0]}:<SpanModalMareList>{age[1]}</SpanModalMareList>
+            </li>
+            <li>{conditions[1]}</li>
+            <li>{conditions[2]}</li>
+            <li>
+              <p>
+                Mileage:{' '}
+                <SpanModalMareList>
+                  {data.mileage.toLocaleString('en-IN')}
+                </SpanModalMareList>
+              </p>
+            </li>
+            <li>
+              <p>
+                Price: <SpanModalMareList>{data.rentalPrice}</SpanModalMareList>
+              </p>
+            </li>
+          </UlModalConditions>
         </div>
-        <a
+        <ButtonModal
           target="_blank"
           rel="noreferrer"
           href="https://support.google.com/chrome/thread/230556846?hl=ru"
         >
           Rental car
-        </a>
+        </ButtonModal>
       </DivContainer>
     </DivBackdrop>
   );

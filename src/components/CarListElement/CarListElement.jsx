@@ -2,6 +2,7 @@ import React from 'react';
 import Modal from 'components/Modal/Modal';
 import CarItem from './CarItem/CarItem';
 import { useState } from 'react';
+import { DivCarList, UlCarList } from './CarListElement.styled';
 
 const CarListElement = ({ data = [] }) => {
   const [openModal, setOpenModal] = useState(false);
@@ -14,17 +15,16 @@ const CarListElement = ({ data = [] }) => {
   const closeModal = () => setOpenModal(false);
 
   return (
-    <div>
-      <h4>CarListElement</h4>
+    <DivCarList>
       {openModal && <Modal data={carItem} closeModal={closeModal} />}
-      <ul>
+      <UlCarList>
         {data.map(car => (
           <li key={car.id}>
             <CarItem car={car} handelClick={handelClick} />
           </li>
         ))}
-      </ul>
-    </div>
+      </UlCarList>
+    </DivCarList>
   );
 };
 

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useCars } from 'redux/useCars';
+import { ButtonLoadMor } from './ButtonLoadMore.styled';
 
 const ButtonLoadMore = () => {
   const { updateCarsList } = useCars();
@@ -10,9 +11,9 @@ const ButtonLoadMore = () => {
   };
   return (
     <div>
-      <button type="button" onClick={handleAddList}>
+      <ButtonLoadMor type="button" onClick={handleAddList}>
         Load more
-      </button>
+      </ButtonLoadMor>
     </div>
   );
 };

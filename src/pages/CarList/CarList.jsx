@@ -6,12 +6,13 @@ import ButtonLoadMore from 'components/Button/ButtonLoadMore';
 
 const CarList = () => {
   const { isCars, isVisibleCars } = useCars();
-  console.log(isCars);
+  const visibleLoadMor = Number.isInteger(isVisibleCars.length / 12);
+
   return (
     <section>
       <Filter data={isCars}></Filter>
       <CarListElement data={isVisibleCars}></CarListElement>
-      <ButtonLoadMore />
+      {visibleLoadMor && <ButtonLoadMore />}
     </section>
   );
 };

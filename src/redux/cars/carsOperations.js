@@ -26,7 +26,6 @@ export const getCars = createAsyncThunk(
 export const updateCars = createAsyncThunk(
   'car-rental/updateCars',
   async (page = 1, thunkAPI) => {
-    console.log(page);
     const params = {
       completed: false,
       page: page,

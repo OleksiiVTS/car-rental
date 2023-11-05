@@ -1,55 +1,68 @@
-import React, { useState } from 'react';
-import { useEffect } from 'react';
+import React from 'react';
 import { useCars } from 'redux/useCars';
+import sprite from '../../Pictures/sprite.svg';
+import {
+  ButtonCarItem,
+  DivCarMark,
+  DivCarMarkList,
+  DivMainCarItem,
+  ImgCarItem,
+  InputCarItem,
+  LabelCarItem,
+  PMiniDescription,
+  SpanCarMareList,
+} from './CarItem.styled';
 
 const CarItem = ({ car, handelClick }) => {
   const { addCarToFavorite, dellCarFromFavorite, isFavoriteCars } = useCars();
-  const [favorite, setFavorite] = useState(false);
-
-  const isFavor = isFavoriteCars.find(carItem => carItem.id === car.id);
-  useEffect(() => {
-    if (isFavor) {
-      setFavorite(true);
-    }
-  }, [isFavor]);
+  const isFavor = isFavoriteCars.includes(car);
 
   const handelChange = () => {
-    if (favorite) {
-      setFavorite(!favorite);
+    if (isFavor) {
       dellCarFromFavorite(car);
       return;
     }
-    setFavorite(!favorite);
     addCarToFavorite(car);
   };
 
   return (
-    <>
-      <img src={car.img} alt="General view of the car" />
-      <input
-        type="checkbox"
-        id={car.id}
-        checked={favorite}
-        onChange={handelChange}
-      />
-      <div>
-        <div>
+    <DivMainCarItem>
+      <ImgCarItem src={car.img} alt="General view of the car" />
+      <LabelCarItem>
+        <InputCarItem
+          type="checkbox"
+          id={car.id}
+          checked={isFavor}
+          onChange={handelChange}
+        />
+        <svg width={18} height={18}>
+          {!isFavor ? (
+            <use href={sprite + '#like'}></use>
+          ) : (
+            <use href={sprite + '#dislike'}></use>
+          )}
+        </svg>
+      </LabelCarItem>
+      <DivCarMark>
+        <DivCarMarkList>
           <p>{car.make}</p>
-          <p>{car.model}</p>
+          <p>
+            <SpanCarMareList>{car.model}</SpanCarMareList>,
+          </p>
           <p>{car.year}</p>
-        </div>
+        </DivCarMarkList>
         <div>
           <p>{car.rentalPrice}</p>
         </div>
-      </div>
-      <p>
-        {car.address} | {car.rentalCompany} | {car.make} | {car.model} |{' '}
-        {car.type} | {car.mileage.toLocaleString('en-IN')}
-      </p>
-      <button type="button" onClick={() => handelClick(car)}>
+      </DivCarMark>
+      <PMiniDescription>
+        {car.address.replace(/,/g, ' |')} | {car.rentalCompany} | {car.make} |{' '}
+        {car.model} | {car.type} | {car.mileage.toLocaleString('en-IN')}
+      </PMiniDescription>
+      <ButtonCarItem type="button" onClick={() => handelClick(car)}>
         Learn more
-      </button>
-    </>
+      </ButtonCarItem>
+    </DivMainCarItem>
   );
 };
 

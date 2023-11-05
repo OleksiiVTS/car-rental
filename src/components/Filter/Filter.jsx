@@ -1,9 +1,22 @@
 import React from 'react';
 import { nanoid } from 'nanoid';
-import { Formik, Field, Form, useFormik } from 'formik';
+import { Formik, useFormik } from 'formik';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useCars } from 'redux/useCars';
+import {
+  ButtonFormik,
+  DivFormikMileage,
+  FieldStyledFormik,
+  FieldStyledFormikPrice,
+  FormStyledFormik,
+  InputFrom,
+  InputTo,
+  LabelFormik,
+  OptionSelectFormik,
+  SpanMark,
+  SpanPrice,
+} from './Filter.styled';
 
 const Filter = ({ data }) => {
   const [markSelect, setMarkSelect] = useState([]);
@@ -36,11 +49,17 @@ const Filter = ({ data }) => {
       toMileage: mileageSelect.minMileage,
     },
     onSubmit: values => {
+      if (values.toMileage <= values.fromMileage) {
+        alert(`Sorry. The "From" price cannot be greater than the "To" price.`);
+        return;
+      }
       addDataToFilter(values);
     },
   });
 
   const min = parseFloat(mileageSelect.minMileage).toFixed(3);
+  // const max = mileageSelect.maxMileage;
+  // console.log(max);
   const toMileage = formik.values.toMileage
     ? parseFloat(formik.values.toMileage).toFixed(3)
     : '';
@@ -50,11 +69,16 @@ const Filter = ({ data }) => {
 
   return (
     <div>
+      <div>
+        <button type="button">Open Filter</button>
+      </div>
       <Formik>
-        <Form onSubmit={formik.handleSubmit}>
-          <label htmlFor="carBrand">
+        <FormStyledFormik onSubmit={formik.handleSubmit}>
+          <LabelFormik htmlFor="carBrand">
+            {!formik.values.carBrand && <SpanMark>Enter the mark</SpanMark>}
             Car brand
-            <Field
+            <br />
+            <FieldStyledFormik
               id="carBrand"
               as="select"
               name="carBrand"
@@ -62,17 +86,20 @@ const Filter = ({ data }) => {
               onBlur={formik.handleBlur}
               value={formik.values.carBrand}
             >
-              <option value=""></option>
+              <OptionSelectFormik value=""></OptionSelectFormik>
               {markSelect.map(item => (
-                <option key={nanoid()} value={item}>
+                <OptionSelectFormik key={nanoid()} value={item}>
                   {item}
-                </option>
+                </OptionSelectFormik>
               ))}
-            </Field>
-          </label>
-          <label htmlFor="price">
+            </FieldStyledFormik>
+          </LabelFormik>
+          <LabelFormik htmlFor="price">
+            <SpanMark>To:</SpanMark>
+            <SpanPrice> $</SpanPrice>
             Price/ 1 hour
-            <Field
+            <br />
+            <FieldStyledFormikPrice
               id="price"
               as="select"
               name="price"
@@ -80,45 +107,48 @@ const Filter = ({ data }) => {
               onBlur={formik.handleBlur}
               value={formik.values.price}
             >
-              <option value=""></option>
+              <OptionSelectFormik value=""></OptionSelectFormik>
               {rentalPriceSelect.sort(sortF).map(item => (
-                <option key={nanoid()} value={item}>
+                <OptionSelectFormik key={nanoid()} value={item}>
                   {item}
-                </option>
+                </OptionSelectFormik>
               ))}
-            </Field>
-          </label>
-          <label htmlFor="mileage / km">
+            </FieldStyledFormikPrice>
+          </LabelFormik>
+          <LabelFormik htmlFor="mileage / km">
             Car mileage / km
-            <input
-              id="fromMileage"
-              type="number"
-              name="fromMileage"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={fromMileage}
-              step="0.100"
-              placeholder={`From: ${mileageSelect.minMileage.toLocaleString(
-                'en-IN'
-              )}`}
-              min={min}
-            />
-            <input
-              id="toMileage"
-              type="number"
-              name="toMileage"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={toMileage}
-              step="0.100"
-              placeholder={`To: ${mileageSelect.maxMileage.toLocaleString(
-                'en-IN'
-              )}`}
-              min={min}
-            />
-          </label>
-          <button type="submit">Search</button>
-        </Form>
+            <br />
+            <DivFormikMileage>
+              <InputFrom
+                id="fromMileage"
+                type="number"
+                name="fromMileage"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={fromMileage}
+                step="0.100"
+                placeholder={`From: ${mileageSelect.minMileage.toLocaleString(
+                  'en-IN'
+                )}`}
+                min={min}
+              />
+              <InputTo
+                id="toMileage"
+                type="number"
+                name="toMileage"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={toMileage}
+                step="0.100"
+                placeholder={`To: ${mileageSelect.maxMileage.toLocaleString(
+                  'en-IN'
+                )}`}
+                min={min}
+              />
+            </DivFormikMileage>
+          </LabelFormik>
+          <ButtonFormik type="submit">Search</ButtonFormik>
+        </FormStyledFormik>
       </Formik>
     </div>
   );
