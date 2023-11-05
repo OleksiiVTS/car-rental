@@ -19,7 +19,7 @@ export const FormStyledFormik = styled(Form)`
   margin-bottom: 50px;
 
   @media screen and (max-width: 930px) {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: ${props => (props.mode === 'true' ? `0` : `-410px`)};
     flex-direction: column;
