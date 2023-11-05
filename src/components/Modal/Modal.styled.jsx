@@ -37,6 +37,10 @@ export const DivContainer = styled.div`
   padding: 40px;
   background-color: rgba(255, 255, 255, 1);
   border-radius: 24px;
+
+  @media screen and (max-width: 930px) {
+    padding: 5px;
+  }
 `;
 
 export const DivImgBox = styled.div`
