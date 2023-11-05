@@ -63,6 +63,7 @@ const Filter = ({ data }) => {
         toMileage === '';
       if (empty) {
         addDataToFilter(values);
+        setShowSidebar('false');
         return;
       }
       if (values.toMileage < values.fromMileage) {
