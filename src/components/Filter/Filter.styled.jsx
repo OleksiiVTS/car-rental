@@ -93,7 +93,7 @@ export const FieldStyledFormik = styled(Field)`
 
 export const FieldStyledFormikPrice = styled(FieldStyledFormik)`
   padding: 14px 20px 14px 39px;
-  min-width: auto;
+  min-width: 105px;
 `;
 
 export const OptionSelectFormik = styled.option`
