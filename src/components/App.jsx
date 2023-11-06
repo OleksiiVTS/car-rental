@@ -10,6 +10,7 @@ const HeaderLayout = loadable(() =>
 const Home = loadable(() => import('../pages/Home/Home.jsx'));
 const CarList = loadable(() => import('../pages/CarList/CarList.jsx'));
 const Favorite = loadable(() => import('../pages/Favorite/Favorite.jsx'));
+const NotFound = loadable(() => import('../pages/NotFound.jsx'));
 
 const App = () => {
   const { getCarsList } = useCars();
@@ -24,6 +25,7 @@ const App = () => {
         <Route index element={<Home />} />
         <Route path="car-list" element={<CarList />} />
         <Route path="favorite" element={<Favorite />} />
+        <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
   );
