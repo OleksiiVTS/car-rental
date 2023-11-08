@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { ButtonClose } from 'components/Modal/Modal.styled';
+import { ButtonClose } from 'components/Modal/ModalPortal.styled';
 import { Formik, Field, Form } from 'formik';
 
 export const FormikStyled = styled(Formik)``;
