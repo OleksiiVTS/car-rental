@@ -52,6 +52,7 @@ const Filter = ({ data }) => {
       carBrand: '',
       price: '',
       fromMileage: mileageSelect.minMileage,
+      // fromMileage: '',
       toMileage: mileageSelect.minMileage,
     },
     onSubmit: values => {
